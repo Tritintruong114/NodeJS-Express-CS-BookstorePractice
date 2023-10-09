@@ -1,5 +1,5 @@
 "use client";
-import React, { ChangeEvent, SyntheticEvent, useState } from "react";
+import React, { SyntheticEvent, useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Link from "next/link";
