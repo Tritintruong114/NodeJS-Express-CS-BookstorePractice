@@ -5,11 +5,12 @@ const fs = require("fs");
 let database = fs.readFileSync("pokemons.json", "utf-8");
 database = JSON.parse(database);
 
+let newArray = database.slice(0, 721);
 router.get("/", (req, res, next) => {
   //Read data from db.json then parse to JSobject
   try {
     let result = {
-      data: database.slice(0, 721).map((pokemon, index) => {
+      data: newArray.map((pokemon, index) => {
         return {
           id: index,
           name: pokemon.Name,
@@ -17,7 +18,7 @@ router.get("/", (req, res, next) => {
           url: `http://localhost:3333/images/${index + 1}.png`,
         };
       }),
-      totalPokemon: database.length,
+      totalPokemon: newArray.length,
     };
     res.status(200).send(result);
   } catch (error) {
@@ -27,16 +28,33 @@ router.get("/", (req, res, next) => {
 
 router.get("/:name", (req, res, next) => {
   try {
-    let pokemon = database.filter(
+    let pokemon = newArray.filter(
       (pokemon) => pokemon.Name === req.params.name
     );
+
+    let index = newArray.indexOf(pokemon[0]) + 1;
+
+    let previous = index === 0 ? newArray.length - 1 : index - 1;
+
+    let next = index === newArray.length - 1 ? 0 : index + 1;
+
     let result = {
-      id: database.indexOf(pokemon[0]),
+      previous: {
+        id: previous,
+        name: newArray[previous].Name,
+        types: [newArray[previous].Type1, newArray[previous].Type2],
+        url: `http://localhost:3333/images/${previous}.png`,
+      },
+      next: {
+        id: next,
+        name: newArray[next].Name,
+        types: [newArray[next].Type1, newArray[next].Type2],
+        url: `http://localhost:3333/images/${next}.png`,
+      },
+      id: index,
       name: pokemon[0].Name,
       types: [pokemon[0].Type1, pokemon[0].Type2],
-      url: `http://localhost:3333/images/${
-        database.indexOf(pokemon[0]) + 1
-      }.png`,
+      url: `http://localhost:3333/images/${index}.png`,
     };
 
     res.status(200).send(result);

@@ -10,6 +10,18 @@ interface Props {
   };
 }
 interface Pokemon {
+  previous: {
+    id: number;
+    name: string;
+    url: string;
+    types: string[];
+  };
+  next: {
+    id: number;
+    name: string;
+    url: string;
+    types: string[];
+  };
   id: number;
   name: string;
   types: string[];
@@ -18,7 +30,7 @@ interface Pokemon {
 const DetailPage = ({ params }: Props) => {
   const { slug } = params;
 
-  const [pokemon, setPokemon] = useState<Pokemon[]>();
+  const [pokemon, setPokemon] = useState<Pokemon>();
 
   const res = async () => {
     const response = await fetch(`http://localhost:3333/pokemons/${slug}`);
@@ -33,26 +45,45 @@ const DetailPage = ({ params }: Props) => {
 
   return (
     <>
-      {/* <Link href="/">
+      <Link href="/">
         <Button className="absolute ml-6 mt-6 top-0 left-0">Home</Button>
       </Link>
       <div className="w-fit m-auto justify-center items-center flex flex-col py-6">
         <h1 className="font-bold text-3xl uppercase">{pokemon?.name}</h1>
         <Image src={pokemon?.url || ""} alt="" height={300} width={300} />
-        <div className="flex">
-          {pokemon?.types.map((type, index) => {
-            return (
-              <Button
-                variant={type?.toLowerCase() as any}
-                size="sm"
-                key={index}
-              >
-                {type}
-              </Button>
-            );
-          })}
+      </div>
+      <div className="flex w-full justify-between px-12 max-w-4xl m-auto">
+        <div className="flex flex-col">
+          <Link href={`/pokemon/${pokemon?.previous.name}`}>
+            <div className="flex justify-center items-center flex-col">
+              <h1 className="font-bold text-3xl uppercase">
+                {pokemon?.previous.name}
+              </h1>
+              <Image
+                src={pokemon?.previous.url || ""}
+                alt=""
+                height={300}
+                width={300}
+              />
+            </div>
+          </Link>
         </div>
-      </div> */}
+        <div className="flex flex-col">
+          <Link href={`/pokemon/${pokemon?.next.name}`}>
+            <div className="flex justify-center items-center flex-col">
+              <h1 className="font-bold text-3xl uppercase">
+                {pokemon?.next.name}
+              </h1>
+              <Image
+                src={pokemon?.next.url || ""}
+                alt=""
+                height={300}
+                width={300}
+              />
+            </div>
+          </Link>
+        </div>
+      </div>
     </>
   );
 };
