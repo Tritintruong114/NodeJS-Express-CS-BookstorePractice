@@ -45,7 +45,7 @@ export default function Home() {
 
   return (
     <div className="grid xl:grid-cols-3 grid-cols-1 md:grid-cols-2 gap-3 p-6">
-      <div className="flex w-full col-span-3 justify-center items-center gap-6">
+      <div className="flex flex-wrap  xl:col-span-3 md:col-span-2  justify-center items-center gap-6">
         {types?.map((type, index) => {
           return (
             <Link href={`type/${type}`} key={index}>
@@ -59,11 +59,18 @@ export default function Home() {
       {pokemons?.map((pokemon, index) => {
         return (
           <div
-            className="flex flex-col justify-center items-center bg-cyan-200/30 rounded-xl"
+            className="flex relative flex-col justify-center items-center bg-cyan-200/30 rounded-xl"
             key={index}
           >
+            <Image
+              className="absolute top-0 w-full h-full rounded-3xl"
+              src="/cover.jpg"
+              alt=""
+              width={300}
+              height={150}
+            />
             <Link
-              className="flex flex-col justify-centers items-center"
+              className="flex z-10 flex-col justify-centers items-center"
               href={`/pokemon/${pokemon.name}`}
             >
               <h1 className="font-bold text-xl uppercase">{pokemon.name}</h1>

@@ -33,9 +33,16 @@ const TypePage = ({ params }: ParamsProps) => {
         {pokemon?.map((pokemon, index) => {
           return (
             <div
-              className="flex flex-col justify-center items-center bg-cyan-200/30 rounded-xl"
+              className="flex relative flex-col justify-center items-center bg-cyan-200/30 rounded-xl"
               key={index}
             >
+              <Image
+                className="absolute top-0 w-full h-full rounded-3xl"
+                src="/cover.jpg"
+                alt=""
+                width={300}
+                height={150}
+              />
               <Link
                 className="flex flex-col justify-centers items-center"
                 href={`/pokemon/${pokemon.name}`}
