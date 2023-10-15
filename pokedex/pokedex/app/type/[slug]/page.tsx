@@ -44,7 +44,7 @@ const TypePage = ({ params }: ParamsProps) => {
                 height={150}
               />
               <Link
-                className="flex flex-col justify-centers items-center"
+                className="flex flex-col z-10 justify-centers items-center"
                 href={`/pokemon/${pokemon.name}`}
               >
                 <h1 className="font-bold text-xl uppercase">{pokemon.name}</h1>

@@ -36,7 +36,6 @@ const DetailPage = ({ params }: Props) => {
     const response = await fetch(`http://localhost:3333/pokemons/${slug}`);
     const data = await response.json();
     setPokemon(data);
-    console.log(data);
   };
 
   useEffect(() => {

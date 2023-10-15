@@ -32,7 +32,7 @@ router.get("/:name", (req, res, next) => {
       (pokemon) => pokemon.Name === req.params.name
     );
 
-    let index = newArray.indexOf(pokemon[0]) + 1;
+    let index = newArray.indexOf(pokemon[0]);
 
     let previous = index === 0 ? newArray.length - 1 : index - 1;
 
